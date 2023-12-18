@@ -1,6 +1,9 @@
 //To run in terminal type
 //mongod
 //node app.js
+//push to main
+//git push -u origin main
+
 
 const express = require('express');
 const path = require('path');
