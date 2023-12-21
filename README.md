@@ -1,1 +1,1 @@
-BAsic CRUD app 
+Basic CRUD app 
