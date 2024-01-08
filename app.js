@@ -5,17 +5,19 @@
 //git push -u origin main
 //npx nodemon app.js
 //npm i cookie-parser
+//https://getbootstrap.com/docs/5.0/components
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const eJsMate = require('ejs-mate');
 const session = require('express-session');
-const  flash = require('connect-flash');
+const flash = require('connect-flash');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const User = require('./model/user')
+const User = require('./models/user');
 
 
 const campgrounds = require('./routes/campgrounds');
@@ -70,6 +72,13 @@ app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
+ })
+
+ app.get('/fakeUser', async (req, res) => {
+    const user = new User({email: 'alien@gmail.com', username: 'allieens'});
+    const newUser = await User.register(user, 'chicken');
+    res.send(newUser);
+
  })
 
 app.use('/campgrounds', campgrounds);

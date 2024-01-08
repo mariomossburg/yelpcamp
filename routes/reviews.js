@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 
 const Campground = require('../models/campground');
-const Review = require('../models/review');
+const Review = require('../models/reviews.js');
 
 const { reviewSchema } = require('../schemas.js');
 
