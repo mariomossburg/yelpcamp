@@ -8,7 +8,6 @@
 //https://getbootstrap.com/docs/5.0/components
 
 
-
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');

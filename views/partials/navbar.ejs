@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">yelpCamp</a>
+    <a class="navbar-brand" href="#">YelpCamp</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -14,46 +14,26 @@
           <a class="nav-link" href="/campgrounds">Campgrounds</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/campgrounds/new">New Campgrounds</a>
+          <a class="nav-link" href="/campgrounds/new">New Campground</a>
         </li>
-
-        <div>
-        <li class="nav-link ms-lg-auto">
-          <% if(!currentUser) {%>
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-        <li class="nav-link">
-          <a class="nav-link" href="/register">Register</a>
-        </li>
-        <% } else { %>
-        <li class="nav-link">
-          <a class="nav-link" href="/logout">Logout</a>
-        </li>
-        <% } %>
-      </div>
       </ul>
+      <div class="d-flex">
+        <div class="navbar-nav">
+        <% if(!currentUser) {%>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+          <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </div>
+          <% } %> 
+        </div>
+      </div>
     </div>
   </div>
-</nav>
-
-
-<!-- <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">YelpCamp</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-          <a class="nav-link"  href="/">Home</a>
-          <a class="nav-link" href="/campgrounds">Campgrounds</a>
-          <a class="nav-link" href="/campgrounds/new">New Campgrounds</a>
-    </div>
-    <div class="navbar-nav ml-auto">
-      <a class="nav-link" href="/login">Login</a>
-      <a class="nav-link" href="/register">Register</a>
-      <a class="nav-link" href="/logout">Logout</a>
-    </div>
-  </div>
-  </div>
-</nav> -->
+</nav> 
