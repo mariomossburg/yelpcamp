@@ -1,5 +1,7 @@
-//To run in terminal type
-//mongosh --> mongod
+//To run in terminal:
+//mongosh
+// --> mongod
+//
 //node app.js
 //push to main
 //git push -u origin main
@@ -24,7 +26,6 @@ const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const campgroundsRoutes = require('./routes/campgrounds');
 const reviewsRoutes = require('./routes/reviews')
-
 mongoose.connect('mongodb://localhost:27017/yelp-camp',{
     useNewUrlParser: true,
     //useCreateIndex: true,
