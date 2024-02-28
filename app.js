@@ -10,6 +10,11 @@
 //https://getbootstrap.com/docs/5.0/components
 
 
+if(process.env.NODE_ENV !== "production"){
+    require('dotenv').config();
+}
+
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
