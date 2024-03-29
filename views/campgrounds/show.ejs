@@ -1,9 +1,9 @@
 <% layout('layouts/boilerplate')%>
     <link rel="stylesheet" href="/stylesheets/stars.css">
 
+    <div class="container">
     <div class="row">
         <div class="col-6">
-            <div id='map' style="width: 400px; height: 400px;"></div>
             <div id="CampgroundCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <% campground.images.forEach((img, i)=> { %>
@@ -12,12 +12,8 @@
                         </div>
                         <% }) %>
                 </div>
-                <!-- <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#CampgroundCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#CampgroundCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#CampgroundCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                  </div>
-            </div> -->
+
+
             <% if(campground.images.length > 1) { %>
                 <button class="carousel-control-prev" type="button" data-bs-target="#CampgroundCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -28,18 +24,16 @@
                     <span class="visually-hidden">Next</span>
                   </button>
                 </a>
-            <!-- <button class="carousel-control-prev" type="button" data-bs-target="#CampgroundCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#CampgroundCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button> -->
             <% } %>
-
           </div>
     </div>
+
+    <div class="col-6">
+        <div id='map' style="width: 400px; height: 400px;"></div>
+    </div>
+</div>
+
+
 
     <div class="card mb-3">
         <div class="card-body">
@@ -73,6 +67,7 @@
 
     </div>
     <div class="col-6">
+
         <% if(currentUser){ %>
             <h2>Leave a Review</h2>
             <form action="/campgrounds/<%=campground._id%>/reviews" method="POST" class="mb-3 validated-form"
