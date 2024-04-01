@@ -1,7 +1,3 @@
-//const campground = require("../../models/campground");
-
-const { text } = require("express");
-
 	mapboxgl.accessToken = mapToken;
     const map = new mapboxgl.Map({
         container: 'cluster-map',
@@ -10,6 +6,8 @@ const { text } = require("express");
         center: [-103.5917, 40.6699],
         zoom: 3
     });
+
+    map.addControl(new mapboxgl.NavigationControl());
 
     map.on('load', () => {
         // Add a new source from our GeoJSON data and
