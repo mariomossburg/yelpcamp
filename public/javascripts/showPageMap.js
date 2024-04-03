@@ -18,4 +18,3 @@
         )
         .addTo(map)
 
-        //test
