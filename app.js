@@ -9,6 +9,8 @@
 //npm i cookie-parser
 //https://getbootstrap.com/docs/5.0/components
 
+//deployed: https://yelpcamp-8umd.onrender.com/campgrounds
+
 
 if(process.env.NODE_ENV !== "production"){
     require('dotenv').config();
@@ -31,7 +33,9 @@ const userRoutes = require('./routes/users');
 const campgroundsRoutes = require('./routes/campgrounds');
 const reviewsRoutes = require('./routes/reviews');
 const MongoStore = require('connect-mongo');
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+// const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = process.env.DB_URL;
+
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
