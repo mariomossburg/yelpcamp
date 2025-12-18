@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  # Tailscale sidecar for YelpCamp
+  tailscale-yelpcamp:
+    image: tailscale/tailscale:latest
+    container_name: ts-yelpcamp
+    hostname: yelpcamp-app
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+    volumes:
+      - ${PWD}/tailscale-yelpcamp/state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+
+  # YelpCamp Node.js app
+  yelpcamp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yelpcamp-app
+    network_mode: service:tailscale-yelpcamp
+    depends_on:
+      - tailscale-yelpcamp
+    environment:
+      - NODE_ENV=production
+      - DB_URL=${DB_URL}
+      - SECRET=${SECRET}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_KEY=${CLOUDINARY_KEY}
+      - CLOUDINARY_SECRET=${CLOUDINARY_SECRET}
+      - MAPBOX_TOKEN=${MAPBOX_TOKEN}
+    restart: unless-stopped

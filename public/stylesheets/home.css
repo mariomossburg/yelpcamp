@@ -11,7 +11,19 @@ body {
 }
 
 .cover-container {
-    max-width: 60vw;
+    max-width: 85vw;
+}
+
+@media (min-width: 768px) {
+    .cover-container {
+        max-width: 75vw;
+    }
+}
+
+@media (min-width: 1200px) {
+    .cover-container {
+        max-width: 70vw;
+    }
 }
 
 
@@ -34,7 +46,39 @@ body {
 
 }
 
-.btn-secondary, .btn-secondary:hover {
-    color: #333;
+/* Modern CTA Button */
+.btn-cta {
+    background-color: #fff;
+    color: #212529;
+    font-weight: 600;
     text-shadow: none;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-transform: none;
+    letter-spacing: 0.3px;
+}
+
+.btn-cta:hover {
+    background-color: transparent;
+    color: #fff;
+    border-color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.btn-cta:active {
+    transform: translateY(0);
+}
+
+/* Improve heading */
+.display-4 {
+    font-size: 3.5rem;
+    letter-spacing: -1px;
+}
+
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2.5rem;
+    }
 }
