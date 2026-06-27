@@ -1,12 +1,69 @@
-node_modules
-npm-debug.log
+# ============================================================
+# yelpcamp — Docker build context exclusions
+# Single-service Node.js app
+# ============================================================
+
+# Node.js — rebuilt inside container
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.pnp
+.pnp.*
+
+# SECURITY: env files
 .env
-.git
+.env.*
+.env.local
+.env.production
+.env.development
+
+# Seed data — local DB seeding only, not needed at runtime
+seeds/
+
+# Tests and coverage
+coverage/
+.nyc_output
+*.test.js
+*.spec.js
+__tests__/
+test/
+
+# Tailscale runtime state
+tailscale-yelpcamp/
+
+# VCS and IDE
+.git/
 .gitignore
-README.md
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.editorconfig
+
+# OS artifacts
 .DS_Store
+Thumbs.db
+
+# Docker files
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Documentation
 *.md
-.vscode
-.idea
+README.md
+docs/
+
+# Logs
 *.log
-tailscale-yelpcamp
+logs/
+
+# Secrets and certs
+*.pem
+*.key
+*.crt
+secrets/
+credentials/

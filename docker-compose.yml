@@ -1,23 +1,28 @@
 version: "3.8"
 
 services:
-  # Tailscale sidecar for YelpCamp
   tailscale-yelpcamp:
-    image: tailscale/tailscale:latest
+    image: tailscale/tailscale:v1.94.2
     container_name: ts-yelpcamp
     hostname: yelpcamp-app
     environment:
       - TS_AUTHKEY=${TS_AUTHKEY}
       - TS_STATE_DIR=/var/lib/tailscale
+      - TS_AUTH_ONCE=true
+      - TS_SERVE_CONFIG=/config/serve-config.json
     volumes:
       - ${PWD}/tailscale-yelpcamp/state:/var/lib/tailscale
+      - ${PWD}/tailscale-yelpcamp/serve-config.json:/config/serve-config.json:ro
       - /dev/net/tun:/dev/net/tun
     cap_add:
       - net_admin
       - sys_module
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     restart: unless-stopped
 
-  # YelpCamp Node.js app
   yelpcamp:
     build:
       context: .
@@ -34,4 +39,16 @@ services:
       - CLOUDINARY_KEY=${CLOUDINARY_KEY}
       - CLOUDINARY_SECRET=${CLOUDINARY_SECRET}
       - MAPBOX_TOKEN=${MAPBOX_TOKEN}
+    read_only: true
+    tmpfs:
+      - /tmp
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "0.25"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     restart: unless-stopped

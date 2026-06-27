@@ -1,28 +1,22 @@
-# Use Node.js 18 LTS
-FROM node:18-alpine
-
-# Create app directory
-WORKDIR /usr/src/app
-
-# Copy package files
+FROM node:20.19.1-alpine3.21 AS deps
+WORKDIR /app
 COPY package*.json ./
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev
 
-# Install dependencies
-RUN npm ci --only=production
+FROM node:20.19.1-alpine3.21 AS runner
+WORKDIR /app
 
-# Copy app source
-COPY . .
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Expose port 3000
+COPY --from=deps --chown=appuser:appgroup /app/node_modules ./node_modules
+COPY --chown=appuser:appgroup . .
+
+USER appuser
+
 EXPOSE 3000
 
-# Create non-root user for security
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001 && \
-    chown -R nodejs:nodejs /usr/src/app
+HEALTHCHECK --interval=30s --timeout=3s --start-period=15s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/ || exit 1
 
-USER nodejs
-
-# Start the application
 CMD ["node", "app.js"]
-

@@ -56,6 +56,14 @@ app.engine('ejs', eJsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
+// Default locals so EJS templates never reference undefined variables
+app.use((req, res, next) => {
+    res.locals.currentUser = null;
+    res.locals.success = [];
+    res.locals.error = [];
+    next();
+});
+
 app.use(express.urlencoded({ extended: true}));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname,'public')));
@@ -136,8 +144,8 @@ app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
     //console.error(`Error: ${statusCode} - ${message}`);
     //console.error(err.stack);
-        if(!err.message) err.message = 'Oh no, Something Went Wrong!'
-    res.status(statusCode).render('error', {err})
+    if(!err.message) err.message = 'Oh no, Something Went Wrong!'
+    res.status(statusCode).render('error', { err, currentUser: null, success: [], error: [] })
 })
 
 const port = 3000;
