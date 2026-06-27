@@ -141,10 +141,12 @@ app.all('*', (req,res,next) => {
 })
 
 app.use((err, req, res, next) => {
+    console.error('ERROR:', err);
     const { statusCode = 500 } = err;
-    //console.error(`Error: ${statusCode} - ${message}`);
-    //console.error(err.stack);
     if(!err.message) err.message = 'Oh no, Something Went Wrong!'
+    if(res.headersSent) {
+        return res.end();
+    }
     res.status(statusCode).render('error', { err, currentUser: null, success: [], error: [] })
 })
 

@@ -6,15 +6,17 @@
         <div class="col-6">
             <div id="CampgroundCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
+                    <% if (campground.images && campground.images.length) { %>
                     <% campground.images.forEach((img, i)=> { %>
                         <div class="carousel-item <%= i === 0 ? 'active' : ''%>">
                             <img src="<%= img.url%>" class="d-block w-100" alt="">
                         </div>
                         <% }) %>
+                    <% } %>
                 </div>
 
 
-            <% if(campground.images.length > 1) { %>
+            <% if(campground.images && campground.images.length > 1) { %>
                 <button class="carousel-control-prev" type="button" data-bs-target="#CampgroundCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
@@ -48,11 +50,11 @@
             <li class="list-group-item text-muted">
                 <%= campground.location%>
             </li>
-            <li class="list-group-item">Submitted by <%= campground.author.username%>
+            <li class="list-group-item">Submitted by <%= campground.author ? campground.author.username : 'Unknown'%>
             </li>
             <li class="list-group-item">$<%= campground.price%>/night</li>
         </ul>
-        <% if( currentUser && campground.author.equals(currentUser._id)) {%>
+        <% if( currentUser && campground.author && campground.author.equals && campground.author.equals(currentUser._id)) {%>
             <div class="card-body">
                 <a class="card-link btn btn-info" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
                 <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
@@ -105,7 +107,7 @@
                 <% for(let review of campground.reviews) { %>
                     <div class="card mb-3 ">
                         <div class="card-body">
-                            <h5 class="card-title">Rating: <%= review.author.username %>
+                            <h5 class="card-title">Rating: <%= review.author ? review.author.username : 'Unknown' %>
                             </h5>
                             <p class="starability-result" data-rating="<%=review.rating %>">
                                 Rated: <%= review.rating %> stars
@@ -113,7 +115,7 @@
                             <!-- <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username%></h6> -->
                             <p class="card-text">Review: <%= review.body %>
                             </p>
-                            <% if( currentUser && review.author.equals(currentUser._id)) {%>
+                            <% if( currentUser && review.author && review.author.equals && review.author.equals(currentUser._id)) {%>
                                 <form action="/campgrounds/<%=campground._id%>/reviews/<%=review._id%>?_method=DELETE"
                                     method="POST">
                                     <button class="btn btn-sm btn-danger">Delete</button>
