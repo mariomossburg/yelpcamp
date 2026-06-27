@@ -42,6 +42,7 @@ mongoose.connect(dbUrl, {
     //useCreateIndex: true,
     useUnifiedTopology: true,
     //useFindAndModify: false
+    serverSelectionTimeoutMS: 5000
 });
 
 const db = mongoose.connection;
@@ -58,6 +59,7 @@ app.set('views', path.join(__dirname, 'views'))
 
 // Default locals so EJS templates never reference undefined variables
 app.use((req, res, next) => {
+    console.log('[middleware] default locals ran for', req.url);
     res.locals.currentUser = null;
     res.locals.success = [];
     res.locals.error = [];
@@ -133,6 +135,10 @@ app.use('/campgrounds/:id/reviews', reviewsRoutes);
 
 app.get('/', (req,res) => {
     res.render('home')
+});
+
+app.get('/health', (req, res) => {
+    res.send('ok');
 });
 
 
