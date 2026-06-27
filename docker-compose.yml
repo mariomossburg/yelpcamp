@@ -9,6 +9,7 @@ services:
       - TS_AUTHKEY=${TS_AUTHKEY}
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_AUTH_ONCE=true
+      - TS_USERSPACE=false
       - TS_SERVE_CONFIG=/config/serve-config.json
     volumes:
       - ${PWD}/tailscale-yelpcamp/state:/var/lib/tailscale
